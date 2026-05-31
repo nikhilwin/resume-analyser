@@ -1,6 +1,6 @@
 import React, { useState, useRef } from 'react';
 import axios from 'axios';
-import { Upload, FileText, CheckCircle, AlertTriangle, Lightbulb, Zap, Loader2 } from 'lucide-react';
+import { Upload, FileText, CheckCircle, AlertTriangle, Lightbulb, Zap, Loader2, Copy } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const App = () => {
@@ -181,6 +181,30 @@ const App = () => {
                 </ul>
               </div>
             </div>
+
+            {analysis.cover_letter && (
+              <div className="glass-card" style={{ gridColumn: '1 / -1' }}>
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '1.5rem' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                    <FileText size={20} className="text-primary" />
+                    <h3>AI Generated Cover Letter</h3>
+                  </div>
+                  <button 
+                    className="analyze-btn"
+                    style={{ padding: '0.5rem 1rem', fontSize: '0.85rem', display: 'flex', gap: '0.4rem', width: 'auto' }}
+                    onClick={() => {
+                      navigator.clipboard.writeText(analysis.cover_letter);
+                      alert('Cover letter copied to clipboard!');
+                    }}
+                  >
+                    <Copy size={16} /> Copy Text
+                  </button>
+                </div>
+                <div style={{ whiteSpace: 'pre-wrap', lineHeight: '1.7', color: 'var(--text-color)', background: 'rgba(0, 0, 0, 0.2)', padding: '1.5rem', borderRadius: '12px', border: '1px solid rgba(255, 255, 255, 0.05)' }}>
+                  {analysis.cover_letter}
+                </div>
+              </div>
+            )}
           </motion.div>
         )}
       </AnimatePresence>

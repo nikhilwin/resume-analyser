@@ -62,7 +62,7 @@ async def analyze_resume(
         You are an expert ATS (Applicant Tracking System) and Career Coach. 
         Analyze the following resume text.
         
-        {f"Compare it against this Job Description: {job_description}" if job_description else "Provide a general analysis based on industry standards for the roles mentioned in the resume."}
+        {f"Compare it against this Job Description: {job_description}. Additionally, write a highly tailored, professional cover letter that connects the applicant's experience to the specific requirements of the job description." if job_description else "Provide a general analysis based on industry standards for the roles mentioned in the resume. Additionally, write a strong, general-purpose professional cover letter based on the resume content."}
         
         Resume Content:
         {resume_text}
@@ -72,7 +72,8 @@ async def analyze_resume(
             "ats_score": (integer between 0-100),
             "missing_skills": ["list", "of", "missing", "or", "weak", "skills"],
             "suggestions": ["list", "of", "actionable", "suggestions", "to", "improve"],
-            "summary": "Short 2-3 sentence overview of the profile."
+            "summary": "Short 2-3 sentence overview of the profile.",
+            "cover_letter": "A complete, professional cover letter formatted with paragraphs (use \\n\\n for line breaks)."
         }}
         """
 
