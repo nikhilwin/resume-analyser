@@ -1,6 +1,6 @@
 import React, { useState, useRef } from 'react';
 import axios from 'axios';
-import { Upload, FileText, CheckCircle, AlertTriangle, Lightbulb, Zap, Loader2, Copy } from 'lucide-react';
+import { Upload, FileText, CheckCircle, AlertTriangle, Lightbulb, Zap, Loader2, Copy, MessageSquare, Linkedin } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const App = () => {
@@ -92,7 +92,7 @@ const App = () => {
             accept=".pdf"
           />
           <Upload className="upload-icon" />
-          <h3>{file ? 'Resume Selected' : 'Upload your Resume'}</h3>
+          <h3>{file ? 'Document Selected' : 'Upload Resume or LinkedIn Profile (PDF)'}</h3>
           <p className="text-muted">Drag and drop or click to browse (PDF only)</p>
           {file && <div className="file-info">{file.name}</div>}
         </div>
@@ -181,6 +181,48 @@ const App = () => {
                 </ul>
               </div>
             </div>
+
+            {analysis.interview_questions && analysis.interview_questions.length > 0 && (
+              <div className="glass-card" style={{ gridColumn: '1 / -1' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '1.5rem' }}>
+                  <MessageSquare size={20} className="text-primary" />
+                  <h3>Mock Interview Questions</h3>
+                </div>
+                <ul className="suggestions-list">
+                  {analysis.interview_questions.map((q, index) => (
+                    <motion.li 
+                      key={`iq-${index}`}
+                      initial={{ x: 10, opacity: 0 }}
+                      animate={{ x: 0, opacity: 1 }}
+                      transition={{ delay: index * 0.1 + 0.4 }}
+                    >
+                      {q}
+                    </motion.li>
+                  ))}
+                </ul>
+              </div>
+            )}
+
+            {analysis.linkedin_optimization && analysis.linkedin_optimization.length > 0 && (
+              <div className="glass-card" style={{ gridColumn: '1 / -1' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '1.5rem' }}>
+                  <Linkedin size={20} style={{ color: '#0a66c2' }} />
+                  <h3>LinkedIn Profile Optimization</h3>
+                </div>
+                <ul className="suggestions-list">
+                  {analysis.linkedin_optimization.map((tip, index) => (
+                    <motion.li 
+                      key={`li-${index}`}
+                      initial={{ x: -10, opacity: 0 }}
+                      animate={{ x: 0, opacity: 1 }}
+                      transition={{ delay: index * 0.1 + 0.5 }}
+                    >
+                      {tip}
+                    </motion.li>
+                  ))}
+                </ul>
+              </div>
+            )}
 
             {analysis.cover_letter && (
               <div className="glass-card" style={{ gridColumn: '1 / -1' }}>

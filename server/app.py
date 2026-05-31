@@ -59,21 +59,23 @@ async def analyze_resume(
 
         # Prepare Prompt
         prompt = f"""
-        You are an expert ATS (Applicant Tracking System) and Career Coach. 
-        Analyze the following resume text.
+        You are an expert ATS (Applicant Tracking System), Career Coach, and Interviewer. 
+        Analyze the following document (which may be a Resume or a LinkedIn Profile PDF).
         
-        {f"Compare it against this Job Description: {job_description}. Additionally, write a highly tailored, professional cover letter that connects the applicant's experience to the specific requirements of the job description." if job_description else "Provide a general analysis based on industry standards for the roles mentioned in the resume. Additionally, write a strong, general-purpose professional cover letter based on the resume content."}
+        {f"Compare it against this Job Description: {job_description}. Write a highly tailored, professional cover letter that connects the applicant's experience to the job. Generate 5 customized interview questions they should prepare for based on this role." if job_description else "Provide a general analysis based on industry standards for the roles mentioned in the document. Write a strong, general-purpose professional cover letter. Generate 5 mock interview questions."}
         
-        Resume Content:
+        Document Content:
         {resume_text}
         
         Return the analysis ONLY as a JSON object with the following structure:
         {{
             "ats_score": (integer between 0-100),
             "missing_skills": ["list", "of", "missing", "or", "weak", "skills"],
-            "suggestions": ["list", "of", "actionable", "suggestions", "to", "improve"],
+            "suggestions": ["list", "of", "actionable", "suggestions", "to", "improve", "the", "document"],
             "summary": "Short 2-3 sentence overview of the profile.",
-            "cover_letter": "A complete, professional cover letter formatted with paragraphs (use \\n\\n for line breaks)."
+            "cover_letter": "A complete, professional cover letter formatted with paragraphs (use \\n\\n for line breaks).",
+            "interview_questions": ["Question 1", "Question 2", "Question 3", "Question 4", "Question 5"],
+            "linkedin_optimization": ["list", "of", "actionable", "suggestions", "to", "improve", "their", "LinkedIn", "profile", "specifically", "for", "networking", "and", "recruiters"]
         }}
         """
 
